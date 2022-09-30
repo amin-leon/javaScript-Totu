@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM manipulation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+<body>
+  
+    <div class="container">
+        <nav class="navbar bg-primary">
+            <div class="container-fluid">
+              <span class="navbar-brand mb-0 h1">Todo List</span>
+            </div>
+          </nav>
+        
+        <ul class="list-group">
+
+            <li class="list-group-item"><div id="landNew"></div></li> 
+
+          </ul>  
+          <!--form fields and buttond  -->
+          <input type="text" name="" id="todo-title">
+          <input type="date" id="date-picker">
+          <button onclick=" return addNew()" id="btn">Click Me</button>
+          
+      </div>
+      <script>
+         var btni=document.getElementById('btn').textContent="Add New";
+         btni=document.getElementById('btn').style.backgroundColor="cyan"
+         
+         // Models
+
+         let array=[
+         {
+            title:'wake up',
+            NewcontentDateValue:'2022-11-11',
+            id: 'id1' 
+         },
+         {
+            title:'Washing body',
+            NewcontentDateValue:'2021-12-10',
+            id: 'id2'
+         },
+         {
+            title:'Morning Run',
+            NewcontentDateValue:'2020-10-18',
+            id: 'id3'
+         }];
+          //creates a todo
+          function createTodo(title, NewcontentDateValue){
+            const id=''+ new Date().getTime();// compare number and String prevent to delete other item, change the array to String
+            array.push({
+              title:title, 
+              NewcontentDateValue: NewcontentDateValue,
+              id: id
+            });
+
+          }
+          //Deletes a todo
+          function removeTodo(idToDelete){
+            array = array.filter(function(array){
+              if(array.id === idToDelete){
+                return false;
+              }else{
+                return true;
+               }
+             
+
+            });
+          }
+          render();
+          function addNew(){
+            const newItem=document.querySelector('#todo-title');
+            const title=newItem.value;
+
+            const newDate=document.querySelector('#date-picker');
+            const NewcontentDateValue=newDate.value;
+
+            createTodo(title, NewcontentDateValue);
+              render();
+              
+          }
+          function deleteTodo(e){
+            const deleteButton = e.target;
+            const idToDelete = deleteButton.id;
+
+            removeTodo(idToDelete);
+            render(); 
+          }
+  
+          function render(){
+              //reset the page befoore adding duplicate......
+              document.querySelector('#landNew').innerHTML = '';
+  
+              array.forEach( function (array){
+                const element=document.createElement('div');
+                  element.textContent=array.title + ' '+array.NewcontentDateValue;
+
+                  //Add Delete button to each todo list
+                  const deleteButton = document.createElement('button')
+                  deleteButton.innerText='Delete'
+                  deleteButton.style='margin-left:20px;';
+                  deleteButton.id=array.id
+                  element.appendChild(deleteButton);
+                  
+                  deleteButton.onclick=deleteTodo;
+                     
+
+                  const landOndiv = document.querySelector('#landNew');
+                  landOndiv.appendChild(element)
+      
+              });
+  
+          }
+  
+      </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+</html>
