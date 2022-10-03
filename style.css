@@ -1,0 +1,9 @@
+.btn{
+    background-color: cornflowerblue;
+    color: white;
+}
+.whereTodisplay{
+    background-color: rgb(214, 247, 247);
+    border: 0.1px solid white;
+    box-shadow: 1px 1px grey;
+}
